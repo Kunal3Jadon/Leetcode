@@ -1,0 +1,57 @@
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& a) {
+        int n=a.size();
+        vector<int> ans(n);
+        if(n==1)
+        {
+            ans[0]=-1;
+            return ans;
+        }
+        if(n==2)
+        {
+            int el1=max(a[0],a[1]);
+            if(el1==a[1])
+            ans[0]=el1;
+            else
+            ans[0]=-1;
+            if(el1==a[1])
+            ans[1]=-1;
+            else
+            ans[1]=a[0];
+            return ans;
+        }
+        else
+        {
+            stack<int> s;
+            int f=0;
+            for (int i = 0; i < n;i++)
+            ans[i] = -2;
+            for (int i = 0; i < n;i++)
+            {
+                while(!s.empty() && a[s.top()]<a[i])
+                {
+                    ans[s.top()] = a[i];
+                    // cout << s.top() << " " << ps[s.top()] << endl;
+                    s.pop();
+                }
+                if(i==n-2 && f==1)
+                break;
+                s.push(i);
+                
+                if(i==n-1)
+                {
+                    f=1;
+                    i = -1;
+                }
+            }
+            while(!s.empty())
+            {
+                if(ans[s.top()]==-2)
+                ans[s.top()] = -1;
+                s.pop();
+            }
+            return ans;
+        }
+    }
+};
