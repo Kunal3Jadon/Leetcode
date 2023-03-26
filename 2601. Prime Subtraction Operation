@@ -1,0 +1,75 @@
+class Solution {
+public:
+    bool primeSubOperation(vector<int>& a) {
+        int maxi = *max_element(a.begin(), a.end());
+                bool prime[maxi + 1];
+                memset(prime, true, sizeof(prime));
+                for (int p = 2; p * p <= maxi; p++)
+                {
+                    if (prime[p] == true)
+                    {
+                        for (int i = p * p; i <= maxi; i += p)
+                            prime[i] = false;
+                    }
+                }
+                if(a.size()==1)
+                    return true;
+                else{
+                    // cout << maxi;
+                    for (int i = 0; i < a.size();i++)
+                    {
+                        int el=a[i];
+                        for (int j = el-1; j >=2;j--)
+                        {
+                            if(i==0)
+                            {
+                                if(prime[j])
+                                {
+                                    a[i] = a[i] - j;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                if(prime[j])
+                                {
+                                    if(a[i]-j>a[i-1])
+                                    {
+                                        a[i] = a[i] - j;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        int f = 0;
+                        for (int i = 0; i < a.size() - 1;i++)
+                        {
+                            if(a[i]>=a[i+1])
+                            {
+                                f = 1;
+                                break;
+                            }
+                        }
+                        if(f==0)
+                            {
+                            return true;
+                            break;
+                            }
+                    }
+                }
+                int f = 0;
+                for (int i = 0; i < a.size() - 1; i++)
+                {
+                    if (a[i] >= a[i + 1])
+                    {
+                            f = 1;
+                            break;
+                    }
+                }
+                if (f == 0)
+                {
+                    return true;
+                }
+        return false;
+    }
+};
