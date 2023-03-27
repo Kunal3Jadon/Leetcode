@@ -1,0 +1,41 @@
+class Solution {
+public:
+    string convert(string s, int row) {
+        if(row==1)
+        return s;
+        string ans = "";
+        for (int i = 0; i < row; i++)
+        {
+            int j = i;
+            int f = 0;
+            while (j < s.size())
+            {
+                // if(i==0 && j==0)
+                // ans += s[j];
+                // if(i!=j)
+                ans += s[j];
+                if(i==row-1)
+                {
+                    j += abs(row - 1) * 2;
+                    continue;
+                }
+                if (i==0 && f == 0)
+                {
+                    j += abs(i - (row-1)) * 2;
+                }
+                if(i!=0 && f==0)
+                {
+                    j += abs(i - (row-1)) * 2;
+                }
+                if (i != 0 && f == 1)
+                {
+                    j += abs(i - 0) * 2;
+
+                }
+                if(i!=0)
+                    f = !f;
+            }
+        }
+        return ans;
+    }
+};
