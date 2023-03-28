@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string smallestNumber(string s) {
+        vector<int> a(s.size() + 1, 0);
+        int c = 1;
+        int i = 0;
+        for (i = 0; i < s.size();i++)
+        {
+            if(s[i]=='I')
+            {
+                a[i] = c;
+                c++;
+                for (int j = i - 1; j >= 0 && s[j]!='I';j--)
+                {
+                    a[j] = c;
+                    c++;
+                }
+            }
+        }
+        int index = a.size() - 1;
+        if(s[s.size()-1]=='I')
+            a[index] = c;
+        else
+        {
+            for (int j = s.size() - 1; j >= 0 && s[j] != 'I';j--)
+            {
+                a[index] = c;
+                c++;
+                index--;
+            }
+            a[index] = c;
+        }
+        string s1 = "";
+        for (int i = 0; i < a.size();i++)
+            s1 += (a[i] + '0');
+        return s1;
+    }
+};
